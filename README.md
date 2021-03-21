@@ -99,3 +99,21 @@ http://localhost:8082/api/login.
 
 Once you're done, submit your repository's URL in the learning management
 system.
+
+## Running all application components
+
+Here's how I got the application up and running on Windows 10:
+
+```bash
+cd auth
+docker build -t iamtechknow/todo-auth .
+cd ../app
+docker build -t iamtechknow/todo-app .
+cd ../ghi
+docker build -t iamtechknow/todo-gdi .
+docker run -p 8082:80 -d iamtechknow/todo-auth 
+docker run -v //c/Users/Owner/Desktop/prodev-dockerized-services/app/data://usr/src/app/data -p 8081:80 -d iamtechknow/todo-app
+docker run -e APP_URL=http://localhost:8081/api/items -e AUTH_URL=http://localhost:8082/api/login -p 8080:80 -d iamtechknow/todo-ghi
+```
+
+For the second command I used the full path of the data directory on my computer to map it with the container's data path.
